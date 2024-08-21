@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #444;
+        }
+        .countdown {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #1a73e8;
+        }
+        .time-unit {
+            font-size: 12px;
+            font-weight: normal;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Countdown to the End of the Year</h1>
+        <div class="countdown" id="countdown"></div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const endOfYear = new Date(now.getFullYear() + 1, 0, 1);
+            const timeDiff = endOfYear - now;
+
+            const daysRemaining = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hoursRemaining = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutesRemaining = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const secondsRemaining = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = `
+                <div>${daysRemaining}<div class="time-unit">Days</div></div>
+                <div>${hoursRemaining}<div class="time-unit">Hours</div></div>
+                <div>${minutesRemaining}<div class="time-unit">Minutes</div></div>
+                <div>${secondsRemaining}<div class="time-unit">Seconds</div></div>
+            `;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000); // Update every second
+    </script>
+</body>
+</html>
