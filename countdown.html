@@ -6,67 +6,94 @@
     <title>Countdown Timer</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
+            background: #f4f4f4;
             color: #333;
         }
-        .container {
-            background-color: white;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        h1 {
+            font-size: 36px;
+            color: black;
+            margin-bottom: 20px;
             text-align: center;
         }
-        h1 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            color: #444;
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 20px; /* Space between the containers */
+            width: 300px; /* Same width for both containers */
+            max-width: 100%;
         }
-        .countdown {
-            font-size: 28px;
+        .days-remaining {
+            font-size: 48px;
             font-weight: bold;
-            letter-spacing: 2px;
+            color: #1a73e8;
+            margin-bottom: 20px;
+        }
+        .time-countdown {
+            font-size: 24px;
+            font-weight: bold;
             color: #1a73e8;
         }
+        .time-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            align-items: center; /* Center align items vertically */
+        }
         .time-unit {
-            font-size: 12px;
-            font-weight: normal;
+            font-size: 14px;
             color: #555;
+        }
+        .footer {
+            font-size: 14px;
+            font-weight: bolder;
+            color: black;
         }
     </style>
 </head>
 <body>
+    <h1>Countdown To The End Of Year</h1>
     <div class="container">
-        <h1>Countdown to the End of the Year</h1>
-        <div class="countdown" id="countdown"></div>
+        <div class="days-remaining" id="days-remaining"></div>
+    </div>
+    <div class="container">
+        <div class="time-countdown" id="time-countdown">
+            <div class="time-container" id="time-fields"></div>
+        </div>
+    </div>
+    <div class="footer">
+        <span>&trade; </span><strong>Created by Ambrose</strong>
     </div>
 
     <script>
-        function updateCountdown() {
+        const updateCountdown = () => {
             const now = new Date();
             const endOfYear = new Date(now.getFullYear() + 1, 0, 1);
             const timeDiff = endOfYear - now;
 
-            const daysRemaining = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-            const hoursRemaining = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutesRemaining = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-            const secondsRemaining = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-            document.getElementById('countdown').innerHTML = `
-                <div>${daysRemaining}<div class="time-unit">Days</div></div>
-                <div>${hoursRemaining}<div class="time-unit">Hours</div></div>
-                <div>${minutesRemaining}<div class="time-unit">Minutes</div></div>
-                <div>${secondsRemaining}<div class="time-unit">Seconds</div></div>
-            `;
-        }
+            document.getElementById('days-remaining').textContent = `${days} Days`;
+            document.getElementById('time-fields').innerHTML = `
+                <div>${hours}<div class="time-unit">Hours</div></div>
+                <div>${minutes}<div class="time-unit">Minutes</div></div>
+                <div>${seconds}<div class="time-unit">Seconds</div></div>`;
+        };
 
         updateCountdown();
-        setInterval(updateCountdown, 1000); // Update every second
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
